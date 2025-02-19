@@ -9,6 +9,13 @@ function ViewBook() {
     //console.log(params.bookId);
     const [book,setBook] = useState({});
     const [titleval,setTitleval] = useState('');
+    const [isAdmin,setIsAdmin] = useState(0);
+    const [goCart,setGoCart] = useState(0);
+    const [idval,setIdval] = useState('1');
+    const [username, setUserName] = useState('anagaraj');
+    const [bookname, setBookName] = useState('JSP');
+    const [bookprice, setBookPrice] = useState(0);
+
     const listbook = async()=> {
         const response= await fetch(`http://localhost:5000/api/books/${params.bookId}`);
         const data = await response.json();
@@ -36,6 +43,43 @@ function ViewBook() {
         listbook();
     },[]);
 
+    const AddCartFunc = async()=> {
+        const url = 'http://localhost:5000/api/cartlist';
+        
+        setIdval(book._id);
+        setUserName('anagaraj');
+        setBookName(book.name);
+        setBookPrice(book.price);
+        
+        console.log(idval);
+        console.log(username);
+        console.log(bookname);
+        console.log(bookprice);
+        const response = await fetch(
+            url,{
+            headers: {
+                "Content-type":"application/json",
+            },
+            method:"POST",
+            body:JSON.stringify({
+                idval,
+                username,
+                bookname,
+                bookprice
+            })
+            
+        });
+        const data = await response.json();
+        console.log(data);
+        
+    }
+
+    const AddCartButton = ()=> {
+        setGoCart(1);
+        
+        AddCartFunc();
+    }
+
     return (
         <div>
             <Header />
@@ -46,8 +90,26 @@ function ViewBook() {
                 <p>{book.description}</p>
                 <p>{book.author}</p>
                 <p>&#8377;{book.price}</p>
-                <NavLink to={`/books/edit/${book._id}`} className="linknav">Edit Book Details</NavLink><br />
-                <NavLink to="/" onClick={DeleteBook} className="linknav">Delete Book</NavLink>
+                {isAdmin ? (
+                    <div>
+                        <NavLink to={`/books/edit/${book._id}`} className="linknav">Edit Book Details</NavLink><br />
+                        <NavLink to="/" onClick={DeleteBook} className="linknav">Delete Book</NavLink>
+                    </div>
+                ) : (
+                    <div>
+                        {goCart ? (
+                            <div>
+                                <button className="AddBtn" ><NavLink to='/cart' className="linknav" style={{color:"white"}}>Go Cart</NavLink></button>
+                            </div>
+                        ) : (
+                            <div>
+                                <button className="AddBtn" onClick={AddCartButton}>Add to Cart</button>
+                            </div>
+                        )}
+                        <button className="AddBtn"><NavLink to='/cart' className="linknav" style={{color:"white"}}>Buy Now</NavLink></button>
+                    </div>
+                )}
+                
             </div>
             <Footer />
         </div>
