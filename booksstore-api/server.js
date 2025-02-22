@@ -1,6 +1,10 @@
 const express = require('express');
 const app = express();
 
+
+const dotenv = require('dotenv');
+dotenv.config();
+
 const cors = require('cors');
 app.use(cors());
 
@@ -17,6 +21,8 @@ app.get("/",(req,res)=> {
     res.json({message:"API is running"});
 })
 
-app.listen(5000,()=>{
+PORT = process.env.PORT || 5000;
+
+app.listen(PORT,()=>{
     console.log("Server is running at port 5000");
 });
