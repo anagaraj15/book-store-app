@@ -12,26 +12,29 @@ function EditBook() {
     const [price,setBookPrice] = useState(0);
     const [book,setBook] = useState({});
     const UpdateBook = async()=> {
-        //e.preventdefault();
-        console.log("Inside of Submit");
-        const url = `http://localhost:5000/api/books/${params.bookId}`;
-        const response = await fetch(
-            url,{
-            headers:{
-                "Content-type" : "application/json",
-            },
-            method:"PUT",
-            body:JSON.stringify({
-                name,
-                description,
-                author,
-                price
-            })
-        });
-        const data = await response.json();
-        console.log(data);
-        //setBook(data.book);
-        
+        try {
+            console.log("Inside of Submit");
+            const url = `http://localhost:5000/api/books/${params.bookId}`;
+            const response = await fetch(
+                url,{
+                headers:{
+                    "Content-type" : "application/json",
+                },
+                method:"PUT",
+                body:JSON.stringify({
+                    name,
+                    description,
+                    author,
+                    price
+                })
+            });
+            const data = await response.json();
+            console.log(data);
+            //setBook(data.book);
+        } catch(error) {
+            console.log(error);
+            alert("Server Issue: "+error);
+        }
     }
 
     const UpdateBookButton = (e)=> {
@@ -44,14 +47,19 @@ function EditBook() {
     }
 
     const getBookDetails = async()=> {
-        const response = await fetch(`http://localhost:5000/api/books/${params.bookId}`);
-        const data = await response.json();
-        console.log(data);
-        setBook(data.book);
-        setDescription(book.description)
-        setAuthorName(book.author)
-        setBookPrice(book.price)
-        setBookName(book.name)
+        try {
+            const response = await fetch(`http://localhost:5000/api/books/${params.bookId}`);
+            const data = await response.json();
+            console.log(data);
+            setBook(data.book);
+            setDescription(book.description)
+            setAuthorName(book.author)
+            setBookPrice(book.price)
+            setBookName(book.name)
+        } catch(error) {
+            console.log(error);
+            alert("Servr issue: "+error);
+        }
     }
 
     useEffect(()=> {

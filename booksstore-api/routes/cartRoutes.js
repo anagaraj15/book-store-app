@@ -23,4 +23,14 @@ router.post("/",async(req,res)=> {
     }
 });
 
+router.delete("/:cartId",async(req,res)=> {
+    try {
+        const cart = await Cart.findByIdAndDelete(req.params.cartId);
+        return res.json({message:"Cart Item Deleted",cart:cart});
+    } catch(error) {
+        console.log(error);
+        return res.json({message:'Error'});
+    }
+});
+
 module.exports = router;

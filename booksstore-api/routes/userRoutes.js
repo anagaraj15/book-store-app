@@ -38,6 +38,19 @@ router.post("/",async(req,res)=> {
     }
 })
 
+router.post("/login",async(req,res)=> {
+    try {
+        const user = await User.findOne({
+            username:req.body.username,
+            password:req.body.password
+        });
+        return res.json({message:"Success",token:user._id});
+    } catch(error) {
+        console.log(error);
+        return res.json({message:'Failure',description:'User Credentails not matching'});
+    }
+});
+
 router.put("/:userId",async(req,res)=> {
     try {
         const userId = req.params.userId;

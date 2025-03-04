@@ -220,3 +220,182 @@ Footer {
   
 .dropdown1:hover .dropdown-content1 {display: block;}
 /*for menu bar end*/
+
+/*Cart List CSS start*/
+.QtyBtn {
+    padding: 5px;
+    margin: 10px 10px;
+    background-color: white;
+    color: black;
+    text-align: center;
+    border: none;
+    border-radius: 15px;
+    font-size: 20px;
+}
+
+.Qtyvalue {
+    padding: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.formdiv.cart {
+    text-align: center;
+}
+
+.CartBtn {
+    padding: 5px;
+    margin: 10px 5px;
+    background-color: black;
+    color: white;
+    text-align: center;
+    border: none;
+    border-radius: 15px;
+}
+
+.cart {
+    margin-top: 20px;
+}
+/*Cart List CSS end*/
+
+/*Coupon Container start*/
+.coupon-container {
+    text-align: center;
+    padding: 10px;
+    /* margin: 30px 50px; */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.ApplyBtn {
+    padding: 5px 10px;
+    margin: 10px 0;
+    background-color: black;
+    color: white;
+    text-align: center;
+    border: none;
+}
+
+.TxtBox {
+    padding: 3px;
+}
+/*Coupon Container end*/
+
+/*CartBilling Container start*/
+.cartBilling-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    margin: 30px 50px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    margin-bottom: 80px;
+}
+
+.billingPriceDiv {
+    text-align: right;
+}
+/*CartBilling Container end*/
+
+/*Address Container start*/
+.Addr-container {
+    padding: 10px;
+    margin: 30px 50px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.AddrBtn {
+    padding: 5px;
+    margin: 5px 10px;
+    background-color: black;
+    color: white;
+    text-align: center;
+    border: none;
+}
+
+.BtnLink {
+    color: white;
+    text-decoration: none;
+}
+/*Address Container end*/
+
+/* Address Form Container Start*/
+.Addrform-Container {
+    display: grid;
+    grid-template-columns: auto auto;
+    padding: 10px;
+    /* text-align: center; */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: space-around;
+}
+
+.Txt-Box {
+    padding: 2px;
+}
+/* Address Form Container ends*/
+
+/*AddressList Conatiner Starts*/
+.Addrtitle {
+    text-align: center;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.AddrDiv-Container {
+    padding: 10px;
+    width: 40%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.19),0 6px 20px 0 rgba(0, 0, 0, 0.2);
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+}
+
+.CoverDiv {
+    margin-bottom: 80px;
+}
+
+.BtnsDiv {
+    display: grid;
+    grid-template-columns: auto auto;
+}
+
+.AddrBtnsDiv {
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+
+.AddrLinkBtn {
+    text-align: center;
+    color: black;
+    background-color: lightgray;
+    text-decoration: none;
+    padding: 5px;
+}
+
+.AddrLinkBtn:hover {
+    color: blue;
+}
+
+.NewAddrDiv {
+    padding: 10px;
+    margin-top: 80px;
+    width: 40%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.19),0 6px 20px 0 rgba(0, 0, 0, 0.2);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.AddrNavLink {
+    text-decoration: none;
+}
+/*AddressList Conatiner ends*/

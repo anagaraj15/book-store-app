@@ -12,40 +12,43 @@ function Register() {
     const [password,setPassword] = useState('');
     const [user,setUser] = useState({});
     const AddRegisterUser = async()=> {
-        //e.preventdefault();
-        //console.log("Inside of Submit");
-        const url = "http://localhost:5000/api/users";
-        const response = await fetch(
-            url,{
-            headers:{
-                "Content-type" : "application/json",
-            },
-            method:"POST",
-            body:JSON.stringify({
-                fname,
-                lname,
-                emailid,
-                mobileno,
-                username,
-                password
-            })
-        });
-        /*
-            .then((response) => response.json())
-            .then((data) => {
-                console.log(data);
-                // Handle data
-            })
-            .catch((err) => {
-                console.log(err.message);
+        try {
+            const url = "http://localhost:5000/api/users";
+            const response = await fetch(
+                url,{
+                headers:{
+                    "Content-type" : "application/json",
+                },
+                method:"POST",
+                body:JSON.stringify({
+                    fname,
+                    lname,
+                    emailid,
+                    mobileno,
+                    username,
+                    password
+                })
             });
-        */
-        const data = await response.json();
-        console.log(data);
-        setUser(data.user);
-        
-        if(data.message == 'New User Details'){
-            navigate('/login');
+            /*
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log(data);
+                    // Handle data
+                })
+                .catch((err) => {
+                    console.log(err.message);
+                });
+            */
+            const data = await response.json();
+            console.log(data);
+            setUser(data.user);
+            
+            if(data.message == 'New User Details'){
+                navigate('/booksstore/login');
+            }
+        } catch(error) {
+            console.log(error);
+            alert("Servr Issue: "+error);
         }
         
     }
@@ -92,7 +95,7 @@ function Register() {
                     <input type="password" onChange={(e)=> setPassword(e.target.value)} className="input-txtbox" name="password" placeholder="Enter Password"/>
                     <br />
                     <button className="AddBtn" onClick={AddRegisterkButton}>Register</button><br />
-                    <NavLink to="/login" className="NavLink" >SignIn</NavLink>
+                    <NavLink to="/booksstore/login" className="NavLink" >SignIn</NavLink>
                     
                 </div>
 

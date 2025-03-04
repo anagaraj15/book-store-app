@@ -17,24 +17,34 @@ function ViewBook() {
     const [bookprice, setBookPrice] = useState(0);
 
     const listbook = async()=> {
-        const response= await fetch(`http://localhost:5000/api/books/${params.bookId}`);
-        const data = await response.json();
-        console.log(data);
-        setTitleval(data.message);
-        setBook(data.book);
+        try {
+            const response= await fetch(`http://localhost:5000/api/books/${params.bookId}`);
+            const data = await response.json();
+            console.log(data);
+            setTitleval(data.message);
+            setBook(data.book);
+        } catch(error) {
+            console.log(error);
+            alert("Server Issue: "+error);
+        }
 
     }
 
 
     const DeleteBook = async()=> {
-        const url = `http://localhost:5000/api/books/${params.bookId}`;
-        const response = await fetch(
-            url,{
-            method:"DELETE"
-        });
-        const data = await response.json();
-        console.log(data);
-        //setBook(data.book);
+        try {
+            const url = `http://localhost:5000/api/books/${params.bookId}`;
+            const response = await fetch(
+                url,{
+                method:"DELETE"
+            });
+            const data = await response.json();
+            console.log(data);
+            //setBook(data.book);
+        } catch(error) {
+            console.log(error);
+            alert("Servre Issue: "+error);
+        }
         
     }
 
@@ -44,33 +54,37 @@ function ViewBook() {
     },[]);
 
     const AddCartFunc = async()=> {
-        const url = 'http://localhost:5000/api/cartlist';
-        
-        setIdval(book._id);
-        setUserName('anagaraj');
-        setBookName(book.name);
-        setBookPrice(book.price);
-        
-        console.log(idval);
-        console.log(username);
-        console.log(bookname);
-        console.log(bookprice);
-        const response = await fetch(
-            url,{
-            headers: {
-                "Content-type":"application/json",
-            },
-            method:"POST",
-            body:JSON.stringify({
-                idval,
-                username,
-                bookname,
-                bookprice
-            })
+        try {
+            const url = 'http://localhost:5000/api/cartlist';
+            setIdval(book._id);
+            setUserName('anagaraj');
+            setBookName(book.name);
+            setBookPrice(book.price);
             
-        });
-        const data = await response.json();
-        console.log(data);
+            console.log(idval);
+            console.log(username);
+            console.log(bookname);
+            console.log(bookprice);
+            const response = await fetch(
+                url,{
+                headers: {
+                    "Content-type":"application/json",
+                },
+                method:"POST",
+                body:JSON.stringify({
+                    idval,
+                    username,
+                    bookname,
+                    bookprice
+                })
+                
+            });
+            const data = await response.json();
+            console.log(data);
+        } catch(error) {
+            console.log(error);
+            alert("Servr Issue: "+error);
+        }
         
     }
 
@@ -92,21 +106,21 @@ function ViewBook() {
                 <p>&#8377;{book.price}</p>
                 {isAdmin ? (
                     <div>
-                        <NavLink to={`/books/edit/${book._id}`} className="linknav">Edit Book Details</NavLink><br />
-                        <NavLink to="/" onClick={DeleteBook} className="linknav">Delete Book</NavLink>
+                        <NavLink to={`/booksstore/books/edit/${book._id}`} className="linknav">Edit Book Details</NavLink><br />
+                        <NavLink to="/booksstore/books" onClick={DeleteBook} className="linknav">Delete Book</NavLink>
                     </div>
                 ) : (
                     <div>
                         {goCart ? (
                             <div>
-                                <button className="AddBtn" ><NavLink to='/cart' className="linknav" style={{color:"white"}}>Go Cart</NavLink></button>
+                                <button className="AddBtn" ><NavLink to='/booksstore/books/cart' className="linknav" style={{color:"white"}}>Go Cart</NavLink></button>
                             </div>
                         ) : (
                             <div>
                                 <button className="AddBtn" onClick={AddCartButton}>Add to Cart</button>
                             </div>
                         )}
-                        <button className="AddBtn"><NavLink to='/cart' className="linknav" style={{color:"white"}}>Buy Now</NavLink></button>
+                        <button className="AddBtn"><NavLink to='/booksstore/books/cart' className="linknav" style={{color:"white"}}>Buy Now</NavLink></button>
                     </div>
                 )}
                 

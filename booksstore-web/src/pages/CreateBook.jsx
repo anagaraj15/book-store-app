@@ -10,35 +10,39 @@ function CreateBook() {
     const [price,setBookPrice] = useState(0);
     const [book,setBook] = useState({});
     const AddBook = async()=> {
-        //e.preventdefault();
-        console.log("Inside of Submit");
-        const url = "http://localhost:5000/api/books";
-        const response = await fetch(
-            url,{
-            headers:{
-                "Content-type" : "application/json",
-            },
-            method:"POST",
-            body:JSON.stringify({
-                name,
-                description,
-                author,
-                price
-            })
-        });
-        /*
-            .then((response) => response.json())
-            .then((data) => {
-                console.log(data);
-                // Handle data
-            })
-            .catch((err) => {
-                console.log(err.message);
+        try {
+            console.log("Inside of Submit");
+            const url = "http://localhost:5000/api/books";
+            const response = await fetch(
+                url,{
+                headers:{
+                    "Content-type" : "application/json",
+                },
+                method:"POST",
+                body:JSON.stringify({
+                    name,
+                    description,
+                    author,
+                    price
+                })
             });
-        */
-        const data = await response.json();
-        console.log(data);
-        setBook(data.book);
+            /*
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log(data);
+                    // Handle data
+                })
+                .catch((err) => {
+                    console.log(err.message);
+                });
+            */
+            const data = await response.json();
+            console.log(data);
+            setBook(data.book);
+        } catch(error) {
+            console.log(error);
+            alert("Servr Issue: "+error);
+        }       
         
     }
 

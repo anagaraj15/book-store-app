@@ -1,18 +1,41 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect, Component} from 'react';
 import { NavLink } from 'react-router';
+import {instanceOf} from 'prop-types';
+import {withCookies,Cookies, useCookies} from 'react-cookie';
 import Header from './Header';
 import Footer from './Footer';
 
 function Home() {
+//class Home extends Component {
+
+  /*static propTypes = {
+    cookies: instanceOf(Cookies).isRequired,
+  };
+
+  constructor(props) {
+    super(props);
+
+    const { cookies } = props;
+    this.state = {
+      username: cookies.get('username') || '',
+    };
+  }*/
+
   const [books,setBooks] = useState([]);
   const [titleval,setTitleval] = useState('');
+
   const listbooks = async()=> {
-    const response = await fetch('http://localhost:5000/api/books');
-    const data = await response.json();
-    console.log(data);
-    setBooks(data.books);
-    setTitleval(data.message);
-    console.log(data.message);
+    try {
+      const response = await fetch('http://localhost:5000/api/books');
+      const data = await response.json();
+      console.log(data);
+      setBooks(data.books);
+      setTitleval(data.message);
+      console.log(data.message);
+    } catch(error) {
+      console.log(error);
+      alert("Server issue: "+error);
+    }
   }
 
   useEffect(()=> {
@@ -36,7 +59,7 @@ function Home() {
               <p>&#8377;{book.price}</p>
             </div>
             <div>
-              <NavLink to={`/books/${book._id}`} className="linknav">View Book Details</NavLink>
+              <NavLink to={`/booksstore/books/${book._id}`} className="linknav">View Book Details</NavLink>
             </div>
           </div>
         ))
@@ -50,3 +73,4 @@ function Home() {
 }
 
 export default Home;
+//export default withCookies(Home);
