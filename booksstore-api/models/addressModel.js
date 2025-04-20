@@ -35,6 +35,10 @@ const addressSchema = mongoose.Schema({
     pincode: {
         type:String,
         required:[true,'Pincode is Required']
+    },
+    default_addr: {
+        type:Number,
+        default:0
     }
 
 },

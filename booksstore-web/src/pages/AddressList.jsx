@@ -10,6 +10,7 @@ function AddressList() {
     const [addresses,setAddresses] = useState([]);
     const [cookie, setCookie] = useCookies(['address']);
     //const [checked,setChecked] = useState(0);
+    const [default_addr,setDefaultAddress] = useState(0);
     const myAddress = Cookies.get('address');
     
     const getAddressList = async()=> {
@@ -42,6 +43,34 @@ function AddressList() {
         }
     }
 
+    const SaveAddressId = async(addrId)=> {
+        try {
+            const response = await fetch('http://localhost:5000/api/address',{
+                method:"PUT",
+                headers: {
+                    "Content-Type":"application/json",
+                },
+                body:JSON.stringify({default_addr:0})
+            });
+            const data = await response.json();
+            console.log(data);
+            console.log(default_addr);
+            if(data.message!='Error') {
+                const response1 = await fetch(`http://localhost:5000/api/address/${addrId}`,{
+                    method:"PUT",
+                    headers: {
+                        "Content-Type":"application/json",
+                    },
+                    body:JSON.stringify({default_addr})
+                });
+                const data1 = await response1.json();
+                console.log(data1);
+            }
+        } catch(error) {
+            console.log(error);
+        }
+    }
+
     return(
         <div>
             <Header></Header>
@@ -61,7 +90,8 @@ function AddressList() {
                                     <p>{address.city}-{address.pincode}</p>
                                     <p>{address.state}</p>
                                     <p>{address.mobileno}</p>
-                                    <input type="radio" name="usethis" id={address._id} checked={myAddress==address._id?"checked":""} onChange={()=> setCookie('address',address._id)} />
+                                    <input type="radio" name="usethis" id={address._id} onClick={()=> {setDefaultAddress(1);
+                                        SaveAddressId(address._id)}} defaultValue={address.default_addr} checked={myAddress==address._id?"checked":""} onChange={()=> setCookie('address',address._id)} />
                                     <label htmlFor={address._id}>Use this</label><br />
                                     <div className="BtnsDiv">
                                         <NavLink className="AddrLinkBtn" to={`/booksstore/editaddress/${address._id}`}>Edit</NavLink>

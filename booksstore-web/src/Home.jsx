@@ -6,20 +6,6 @@ import Header from './Header';
 import Footer from './Footer';
 
 function Home() {
-//class Home extends Component {
-
-  /*static propTypes = {
-    cookies: instanceOf(Cookies).isRequired,
-  };
-
-  constructor(props) {
-    super(props);
-
-    const { cookies } = props;
-    this.state = {
-      username: cookies.get('username') || '',
-    };
-  }*/
 
   const [books,setBooks] = useState([]);
   const [titleval,setTitleval] = useState('');

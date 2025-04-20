@@ -3,6 +3,7 @@ import Footer from "../Footer";
 import Header from "../Header";
 import { useState,useEffect } from "react";
 import { useParams } from "react-router";
+import Cookies from "js-cookie";
 
 function ViewBook() {
     const params = useParams();
@@ -12,10 +13,11 @@ function ViewBook() {
     const [isAdmin,setIsAdmin] = useState(0);
     const [goCart,setGoCart] = useState(0);
     const [idval,setIdval] = useState('1');
-    const [username, setUserName] = useState('anagaraj');
-    const [bookname, setBookName] = useState('JSP');
-    const [bookprice, setBookPrice] = useState(0);
-
+    const [username, setUserName] = useState('');
+    const [bookname, setBookName] = useState('');
+    const [price, setBookPrice] = useState(0);
+    const username_val = Cookies.get('username');
+    
     const listbook = async()=> {
         try {
             const response= await fetch(`http://localhost:5000/api/books/${params.bookId}`);
@@ -23,11 +25,39 @@ function ViewBook() {
             console.log(data);
             setTitleval(data.message);
             setBook(data.book);
+
+            setIdval(data.book._id);
+            setUserName(username_val);
+            setBookName(data.book.name);
+            setBookPrice(data.book.price);
+
+            CheckInCartList();
+
         } catch(error) {
             console.log(error);
             alert("Server Issue: "+error);
         }
 
+    }
+
+    const CheckInCartList = async()=> {
+        try {
+            const response = await fetch(`http://localhost:5000/api/cartlist/${params.bookId}`);
+            const data = await response.json();
+            console.log(data);
+            if(data.message!='Error') {
+                //console.log(idval);
+                //console.log(data.cart.idval);
+                if(params.bookId == data.cart.idval) {
+                    setGoCart(1);
+                    //console.log(goCart);
+                } else {
+                    setGoCart(0);
+                }
+            }
+        } catch(error) {
+            console.log(error);
+        }
     }
 
 
@@ -56,15 +86,11 @@ function ViewBook() {
     const AddCartFunc = async()=> {
         try {
             const url = 'http://localhost:5000/api/cartlist';
-            setIdval(book._id);
-            setUserName('anagaraj');
-            setBookName(book.name);
-            setBookPrice(book.price);
             
             console.log(idval);
             console.log(username);
             console.log(bookname);
-            console.log(bookprice);
+            console.log(price);
             const response = await fetch(
                 url,{
                 headers: {
@@ -75,7 +101,7 @@ function ViewBook() {
                     idval,
                     username,
                     bookname,
-                    bookprice
+                    price
                 })
                 
             });

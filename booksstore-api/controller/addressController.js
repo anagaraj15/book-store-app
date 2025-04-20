@@ -20,10 +20,30 @@ const GetAddressList = async(req,res)=> {
     }
 }
 
+const GetDefaultAddress = async(req,res)=> {
+    try {
+        const address = await Address.findOne({default_addr:1});
+        return res.json({message:"Default Address ID",address:address});
+    } catch(error) {
+        console.log(error);
+        return res.json({message:"Error"});
+    }
+}
+
 const GetAddress = async(req,res)=> {
     try {
         const address = await Address.findById(req.params.AddrId);
         return res.json({message:"Address Details",address:address});
+    } catch(error) {
+        console.log(error);
+        return res.json({message:'Error'});
+    }
+}
+
+const UpdateDefaultAddress = async(req,res)=> {
+    try {
+        const address = await Address.updateOne({default_addr:1},req.body,{new:true});
+        return res.json({message:"Default Address Removed",address:address});
     } catch(error) {
         console.log(error);
         return res.json({message:'Error'});
@@ -55,6 +75,8 @@ module.exports = {
     CreateAddress,
     GetAddressList,
     GetAddress,
+    GetDefaultAddress,
     UpdateAddress,
+    UpdateDefaultAddress,
     DeleteAddress
 };

@@ -13,6 +13,16 @@ router.get("/",async(req,res)=> {
     }
 });
 
+router.get("/:cartId",async(req,res)=> {
+    try {
+        const cart = await Cart.findOne({idval:req.params.cartId});
+        return res.json({message:"Getting item in Cart",cart:cart});
+    } catch(error) {
+        console.log(error);
+        return res.json({message:'Error'});
+    }
+});
+
 router.post("/",async(req,res)=> {
     try {
         const cart = await Cart.create(req.body);

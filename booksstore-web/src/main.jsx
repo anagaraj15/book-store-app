@@ -15,6 +15,8 @@ import AddressList from './pages/AddressList.jsx'
 import EditAddress from './pages/EditAddress.jsx'
 import { BrowserRouter,Route,Routes,Navigate } from 'react-router'
 import { CookiesProvider } from 'react-cookie'
+import PaymentComponent from './PaymentComponent.jsx'
+import CheckoutForm from './CheckoutForm.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -35,6 +37,8 @@ createRoot(document.getElementById('root')).render(
           <Route path='/booksstore/newaddress' element={<AddAddress />} />      
           <Route path='/booksstore/editaddress/:addrId' element={<EditAddress />} />      
           <Route path='/booksstore/addresses' element={<AddressList />} />   
+          <Route path='/booksstore/payment' element={<PaymentComponent />} />   
+          <Route path='/booksstore/checkout' element={<CheckoutForm />} />   
           
         </Routes>
       </BrowserRouter>
